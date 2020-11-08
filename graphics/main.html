@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link href="./font/PrimerPrint.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/6346e13f8b.js" crossorigin="anonymous"></script>
+	<style>
+		body {
+			font-family: 'Primer Print', 'Kosugi Maru', 'Roboto';
+			width: 1920px;
+			height: 1080px;
+			overflow: hidden;
+		}
+
+		.sbWrapper {
+			position: absolute;
+			top: 40px;
+            left: 50px;
+            height: 140px;
+            width: 300px;
+		}
+
+		.sbBackground {
+			position: absolute;
+			top: 0px;
+			height: 90px;
+			width: 300px;
+			background-color:white;
+			border-radius: 5px;
+			display: grid;
+			grid-template-columns: 6fr 1fr;
+			grid-template-rows: 1fr 1px 1fr;
+			grid-template-areas: "a b" "c c" "d e";
+			background-clip: padding-box;
+		}
+
+		.sbBGWrapper {
+			position: absolute;
+			top: 0px;
+			height: 92px;
+			width: 306px;
+			border-radius: 5px 5px 0 0;
+		}
+
+		.colorContainer {
+			width: 30px;
+			height: 90px;
+			position: absolute;
+			left: 2px;
+			display: grid;
+			grid-template-rows: 1fr 1fr;
+			grid-template-columns: 1fr;
+		}
+
+		.color {
+			border-radius: 3px;
+			margin: 6px;
+		}
+
+		.colorA {
+			background-color: #FB7B08;
+		}
+
+		.colorB {
+			background-color: #B51CCE;
+		}
+
+		.teamInfo {
+			display: flex;
+			margin-left: 35px;
+			color: white;
+			font-weight: 700;
+			font-size: 1.8em;
+			margin-top: 5px;
+			max-height: 41px;
+			color: black;
+		}
+
+		.score {
+			font-weight: 600;
+			font-size: 2em;
+			color: black;
+			text-align: center;
+			background-color: #ededed;
+			font-family: 'Montserrat';
+			padding: 2px 4px;
+		}
+
+		.placeholder {
+			position: absolute;
+			width: 1920px;
+			height: 1080px;
+			top: 0;
+			left: 0;
+			z-index: -999;
+			display: none;
+		}
+
+		.sbFlavorTextBG {
+			position: absolute;
+			bottom: 11px;
+			right: 0;
+			height: 25px;
+			width: 100%;
+			background-color: white;
+			border-radius: 3px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			opacity: 1;
+		}
+
+		.sbFlavorTextBG fitted-text {
+			color: black;
+			text-align: left;
+			font-size: 1.05em;
+			font-weight: 600;
+		}
+		
+		.sbLine {
+			background-color: #ededed;
+			grid-area: c;
+			height: 1px;
+		}
+
+		span.pronoun {
+			font-size: 20px;
+			background-color: black;
+			padding: 0 5px;
+			color: white;
+		}
+
+		.castersWrapper {
+			position: absolute;
+			top: 185px;
+            left: 50px;
+			opacity: 0;
+		}
+
+		.castersBG {
+			background-color: white;
+			color: black;
+			font-size: 2em;
+			width: 235px;
+			padding: 5px 10px;
+			border-radius: 3px;
+			margin-left: 45px;
+		}
+
+		.castersIcon {
+			height: 100%;
+			width: 48px;
+			position: absolute;
+			z-index: -1;
+			border-radius: 3px 0 0 3px;
+			display: flex;
+			align-content: center;
+			align-items: center;
+			background-color: white;
+		}
+
+		.castersIcon i {
+			font-size: 40px;
+			width: 100%;
+			text-align: center;
+			color: #FF7334;
+		}
+
+		.checkmark {
+			height: 18px;
+			padding: 0 5px;
+		}
+
+		#teamAScore {
+			border-radius: 0 5px 0 0;
+		}
+
+		#teamBScore {
+			border-radius: 0 0 5px 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="sbWrapper">
+		<div class="sbBGWrapper">
+			<div class="sbBackground">
+				<div class="teamInfo">
+					<fitted-text align="left" text="Team A" max-width="215" id="teamAName" class="teamNameElem"></fitted-text>
+				</div>
+				<fitted-text class="score" align="center" text="-" max-width="36" id="teamAScore"></fitted-text>
+				<div class="sbLine"></div>
+				<div class="teamInfo">
+					<fitted-text align="left" text="Team B" max-width="215" id="teamBName" class="teamNameElem"></fitted-text>
+				</div>
+				<fitted-text class="score" align="center" text="-" max-width="36" id="teamBScore"></fitted-text>
+				<div class="colorContainer">
+					<div class="color" id="teamAColor"></div>
+					<div class="color" id="teamBColor"></div>
+				</div>
+			</div>
+		</div>
+		<div class="sbFlavorTextBG">
+			<img class="checkmark" src="img/thick-checkmark.png">
+			<fitted-text align="left" text="" max-width="265"></fitted-text>
+		</div>
+	</div>
+
+	<div class="castersWrapper">
+		<div class="castersIcon">
+			<i class="fas fa-microphone"></i>
+		</div>
+		<div class="castersBG"></div>
+	</div>
+
+	<img class="placeholder" src="img/placeholder.jpg">
+	<script src="../node_modules/gsap/dist/gsap.js"></script>
+	<script src="scripts/fitted-text.js"></script>
+	<script src="scripts/main.js"></script>
+</body>
+</html>

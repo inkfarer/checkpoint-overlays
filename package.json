@@ -1,0 +1,43 @@
+{
+	"name": "checkpoint-overlays",
+	"version": "0.0.0",
+	"description": "Overlay's for the Checkpoint 1 Discord server's Splatoon tournaments.",
+	"homepage": "",
+	"author": {
+		"name": "inkfarer",
+		"email": "inkfarer@inkfarer.com",
+		"url": "https://inkfarer.com"
+	},
+	"files": [
+		"dashboard",
+		"graphics",
+		"extension.js",
+		"extension"
+	],
+	"keywords": [
+		"",
+		"nodecg-bundle"
+	],
+	"nodecg": {
+		"compatibleRange": "^1.1.1",
+		"graphics": [
+			{
+				"file": "main.html",
+				"width": 1920,
+				"height": 1080
+			},
+			{
+				"file": "break.html",
+				"width": 1920,
+				"height": 1080
+			}
+		]
+	},
+	"repository": "https://github.com/nodecg/nodecg.git",
+	"license": "MIT",
+	"dependencies": {
+		"gsap": "^3.4.2",
+		"lastfm": "^0.9.3",
+		"lottie-web": "^5.7.3"
+	}
+}
