@@ -24,7 +24,7 @@ SBData.on('change', newValue => {
 
 // Scene switching
 
-const currentBreakScene = nodecg.Replicant('currenBreakScene', 'ipl-overlay-controls', { defaultValue: 'mainScene' });
+const currentBreakScene = nodecg.Replicant('currentBreakScene', 'ipl-overlay-controls');
 
 currentBreakScene.on('change', (newValue, oldValue) => {
 	let delay = 0;
@@ -61,6 +61,15 @@ currentBreakScene.on('change', (newValue, oldValue) => {
 			toggleMainScene(false, 0);
 			toggleNextUp(false);
 			toggleStages(true, mapsDelay);
+		default:
+			var mapCount = toggleStages(false, 0);
+			var animDelay = 0.5;
+			if (oldValue === 'maps') {
+				animDelay = 0.5 + (mapCount * 0.1);
+			}
+			toggleMainScene(true, animDelay);
+			toggleNextUp(false);
+			return;
 	}
 });
 
