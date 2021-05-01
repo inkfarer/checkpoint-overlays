@@ -1,4 +1,4 @@
-# sos-overlays
+# checkpoint-overlays
 
 A [NodeCG](http://github.com/nodecg/nodecg) bundle for [Checkpoint 1's](https://twitter.com/Checkpoint1SPL) in-house Splatoon tournament.
 
