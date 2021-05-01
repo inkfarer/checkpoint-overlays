@@ -14,3 +14,4 @@ const maplists = nodecg.Replicant('maplists', DASHBOARD_BUNDLE_NAME);
 const currentMaplistID = nodecg.Replicant('currentMaplistID', DASHBOARD_BUNDLE_NAME);
 const mapWinners = nodecg.Replicant('mapWinners', DASHBOARD_BUNDLE_NAME);
 const teamScores = nodecg.Replicant('teamScores', DASHBOARD_BUNDLE_NAME);
+const SBShown = nodecg.Replicant('SBShown', DASHBOARD_BUNDLE_NAME);
