@@ -40,7 +40,7 @@ currentBreakScene.on('change', (newValue, oldValue) => {
         case 'main':
             mapCount = toggleStages(false, 0);
             animDelay = 0.5;
-            if (oldValue === 'maps') {
+            if (oldValue === 'stages') {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleMainScene(true, animDelay);
@@ -50,7 +50,7 @@ currentBreakScene.on('change', (newValue, oldValue) => {
             toggleMainScene(false, 0);
             mapCount = toggleStages(false, 0);
             animDelay = 2.25;
-            if (oldValue === 'maps') {
+            if (oldValue === 'stages') {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleNextUp(true, animDelay);
@@ -63,7 +63,7 @@ currentBreakScene.on('change', (newValue, oldValue) => {
         default:
             mapCount = toggleStages(false, 0);
             animDelay = 0.5;
-            if (oldValue === 'maps') {
+            if (oldValue === 'stages') {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleMainScene(true, animDelay);
@@ -140,8 +140,6 @@ function toggleNextUp(show, delay = 0) {
         for (let i = 0; i < teamAPlayers.length; i++) {
             const element = teamAPlayers[i];
 
-            //element.style.opacity = '0';
-            //gsap.to(element, {opacity: 1, duration: 0.25, delay: (i * 0.05) + (delay * 1.2)});
             gsap.fromTo(element, {clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'}, {
                 ease: 'power2.out',
                 duration: 2,
@@ -153,8 +151,6 @@ function toggleNextUp(show, delay = 0) {
         for (let j = 0; j < teamBPlayers.length; j++) {
             const element = teamBPlayers[j];
 
-            //element.style.opacity = '0';
-            //gsap.to(element, {opacity: 1, duration: 0.25, delay: (j * 0.05) + (delay * 1.2)});
             gsap.fromTo(element, {clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'}, {
                 ease: 'power2.out',
                 duration: 2,
