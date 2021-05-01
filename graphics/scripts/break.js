@@ -271,30 +271,6 @@ NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => 
     });
 });
 
-NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => {
-    nowPlaying.on('change', newValue => {
-        if (!mSongEnabled.value) {
-
-        }
-    });
-    mSongEnabled.on('change', newValue => {
-        var value;
-
-        if (newValue) {
-            value = nowPlayingManual.value;
-        } else {
-            value = nowPlaying.value;
-        }
-
-
-    });
-    nowPlayingManual.on('change', newValue => {
-        if (mSongEnabled.value) {
-
-        }
-    });
-});
-
 function getGridRows(showMusic) {
     let gridStyle = '84px 84px';
 
@@ -308,8 +284,6 @@ function getGridRows(showMusic) {
 
     return gridStyle;
 }
-
-
 
 function animToggleInfo(showMusic, infoElem, elemShown) {
     let gridStyle = getGridRows(showMusic), gridDelay, elemOpacity, elemDelay;
