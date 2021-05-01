@@ -11,7 +11,6 @@ const logoAnim = lottie.loadAnimation({
 // maps scene color switching
 
 SBData.on('change', newValue => {
-    console.log(newValue);
     const rgbA = hexToRgb(newValue.colorInfo.clrA);
     const rgbB = hexToRgb(newValue.colorInfo.clrB);
     var filterA = new Solver(new Color(rgbA[0], rgbA[1], rgbA[2])).solve().filter;
