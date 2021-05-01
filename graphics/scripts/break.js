@@ -10,7 +10,7 @@ const logoAnim = lottie.loadAnimation({
 
 // maps scene color switching
 
-const SBData = nodecg.Replicant('SBData', 'ipl-overlay-controls');
+
 
 SBData.on('change', newValue => {
     const rgbA = hexToRgb(newValue.colorInfo.clrA);
@@ -23,8 +23,6 @@ SBData.on('change', newValue => {
 });
 
 // Scene switching
-
-const currentBreakScene = nodecg.Replicant('currentBreakScene', 'ipl-overlay-controls');
 
 currentBreakScene.on('change', (newValue, oldValue) => {
     let delay = 0;
@@ -215,14 +213,12 @@ function setMainSceneText(textElemID, newText, tl, oldText = '') {
     tl.add(gsap.to(textElem, {duration: 0.5, opacity: 1, delay: 0.25}));
 }
 
-const mainFlavorText = nodecg.Replicant('mainFlavorText', 'ipl-overlay-controls', {defaultValue: 'Be right back!'});
 const mainTextTL = gsap.timeline();
 
 mainFlavorText.on('change', newValue => {
     setMainSceneText('breakFlavorText', newValue, mainTextTL);
 });
 
-const casterNames = nodecg.Replicant('casterNames', 'ipl-overlay-controls', {defaultValue: "We don't know."});
 const casterNamesTL = gsap.timeline();
 
 casterNames.on('change', newValue => {
@@ -230,14 +226,6 @@ casterNames.on('change', newValue => {
     setMainSceneText('breakCastersText', finalElem, casterNamesTL);
 });
 
-const nowPlaying = nodecg.Replicant('nowPlaying', 'ipl-overlay-controls');
-const nowPlayingManual = nodecg.Replicant('nowPlayingManual', 'ipl-overlay-controls', {
-    defaultValue: {
-        artist: '',
-        song: ''
-    }
-});
-const mSongEnabled = nodecg.Replicant('mSongEnabled', 'ipl-overlay-controls', {defaultValue: false});
 const musicTL = gsap.timeline();
 
 function checkStringEmptyOrUndef(string) {
@@ -321,8 +309,7 @@ function getGridRows(showMusic) {
     return gridStyle;
 }
 
-const NSTimerShown = nodecg.Replicant('NSTimerShown', 'ipl-overlay-controls', {defaultValue: false});
-const musicShown = nodecg.Replicant('musicShown', 'ipl-overlay-controls', {defaultValue: true});
+
 
 function animToggleInfo(showMusic, infoElem, elemShown) {
     let gridStyle = getGridRows(showMusic), gridDelay, elemOpacity, elemDelay;
@@ -348,23 +335,6 @@ NodeCG.waitForReplicants(NSTimerShown, musicShown).then(() => {
 
 
 // teams
-
-const nextTeams = nodecg.Replicant('nextTeams', 'ipl-overlay-controls', {
-    defaultValue: {
-        teamAInfo: {
-            name: "Placeholder Team 1",
-            players: [
-                {name: "You should fix this before going live."}
-            ]
-        },
-        teamBInfo: {
-            name: "Placeholder Team 2",
-            players: [
-                {name: "You should fix this before going live."}
-            ]
-        }
-    }
-});
 
 nextTeams.on('change', newValue => {
     nextTeamAName.setAttribute('text', newValue.teamAInfo.name);
@@ -436,21 +406,6 @@ const mapNameToImagePath = {
     "Skipper Pavilion": "S2_Stage_Skipper_Pavilion.png",
     "Unknown Map": "unnamed-unknown-map.png"
 };
-
-const maplists = nodecg.Replicant('maplists', 'ipl-overlay-controls', {
-    defaultValue: [
-        [
-            {id: 0, name: "Default map list"},
-            {map: "Ancho-V Games", mode: "Clam Blitz"},
-            {map: "Ancho-V Games", mode: "Tower Control"},
-            {map: "Wahoo World", mode: "Rainmaker"}
-        ]
-    ]
-});
-
-const currentMaplistID = nodecg.Replicant('currentMaplistID', 'ipl-overlay-controls');
-
-const mapWinners = nodecg.Replicant('mapWinners', 'ipl-overlay-controls');
 
 function createMapListElems(maplist) {
     let stagesGrid = document.querySelector('.stagesGrid');
@@ -586,12 +541,7 @@ function setWinner(index, name, shown) {
 
 // Scoreboard on maps page
 
-const teamScores = nodecg.Replicant('teamScores', 'ipl-overlay-controls', {
-    defaultValue: {
-        teamA: 0,
-        teamB: 0
-    }
-});
+
 
 teamScores.on('change', newValue => {
     document.querySelector('#teamAScore').setAttribute('text', newValue.teamA);
