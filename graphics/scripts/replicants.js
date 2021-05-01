@@ -12,4 +12,4 @@ const rounds = nodecg.Replicant('rounds', DASHBOARD_BUNDLE_NAME);
 const activeRound = nodecg.Replicant('activeRoundId', DASHBOARD_BUNDLE_NAME);
 const mapWinners = nodecg.Replicant('gameWinners', DASHBOARD_BUNDLE_NAME);
 const teamScores = nodecg.Replicant('teamScores', DASHBOARD_BUNDLE_NAME);
-const SBShown = nodecg.Replicant('SBShown', DASHBOARD_BUNDLE_NAME);
+const SBShown = nodecg.Replicant('scoreboardShown', DASHBOARD_BUNDLE_NAME);
