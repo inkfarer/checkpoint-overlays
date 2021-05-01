@@ -259,27 +259,9 @@ function getSongNameString(rep) {
     return rep.artist + ' - ' + rep.song;
 }
 
-NodeCG.waitForReplicants(nowPlaying, nowPlayingManual, mSongEnabled).then(() => {
+NodeCG.waitForReplicants(nowPlaying).then(() => {
     nowPlaying.on('change', newValue => {
-        if (!mSongEnabled.value) {
-            setMainSceneText('breakMusicText', getSongNameString(newValue), musicTL);
-        }
-    });
-    mSongEnabled.on('change', newValue => {
-        var value;
-
-        if (newValue) {
-            value = nowPlayingManual.value;
-        } else {
-            value = nowPlaying.value;
-        }
-
-        setMainSceneText('breakMusicText', getSongNameString(value), musicTL);
-    });
-    nowPlayingManual.on('change', newValue => {
-        if (mSongEnabled.value) {
-            setMainSceneText('breakMusicText', getSongNameString(newValue), musicTL);
-        }
+        setMainSceneText('breakMusicText', getSongNameString(newValue), musicTL);
     });
 });
 
