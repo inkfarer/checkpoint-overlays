@@ -27,47 +27,50 @@ SBData.on('change', newValue => {
 currentBreakScene.on('change', (newValue, oldValue) => {
     let delay = 0;
     let mapsDelay = 2.25;
+    let mapCount = 0;
+    let animDelay = 0;
 
-    if (oldValue === 'maps') {
+    if (oldValue === 'stages') {
         delay = 0.3;
     }
 
-    if (oldValue === 'nextUp') {
+    if (oldValue === 'teams') {
         mapsDelay = 0.5;
     }
 
     switch (newValue) {
-        case 'mainScene':
-            var mapCount = toggleStages(false, 0);
-            var animDelay = 0.5;
+        case 'main':
+            mapCount = toggleStages(false, 0);
+            animDelay = 0.5;
             if (oldValue === 'maps') {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleMainScene(true, animDelay);
             toggleNextUp(false);
-            return;
-        case 'nextUp':
+            break;
+        case 'teams':
             toggleMainScene(false, 0);
-            var mapCount = toggleStages(false, 0);
-            var animDelay = 2.25;
+            mapCount = toggleStages(false, 0);
+            animDelay = 2.25;
             if (oldValue === 'maps') {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleNextUp(true, animDelay);
-            return;
-        case 'maps':
+            break;
+        case 'stages':
             toggleMainScene(false, 0);
             toggleNextUp(false);
             toggleStages(true, mapsDelay);
+            break;
         default:
-            var mapCount = toggleStages(false, 0);
-            var animDelay = 0.5;
+            mapCount = toggleStages(false, 0);
+            animDelay = 0.5;
             if (oldValue === 'maps') {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleMainScene(true, animDelay);
             toggleNextUp(false);
-            return;
+            break;
     }
 });
 
@@ -137,7 +140,7 @@ function toggleNextUp(show, delay = 0) {
         let teamBPlayers = document.querySelectorAll('.nextTeamBPlayer');
 
         for (let i = 0; i < teamAPlayers.length; i++) {
-            element = teamAPlayers[i];
+            const element = teamAPlayers[i];
 
             //element.style.opacity = '0';
             //gsap.to(element, {opacity: 1, duration: 0.25, delay: (i * 0.05) + (delay * 1.2)});
@@ -148,10 +151,9 @@ function toggleNextUp(show, delay = 0) {
                 delay: (i * 0.2) + (delay * 1.2)
             });
         }
-        ;
 
         for (let j = 0; j < teamBPlayers.length; j++) {
-            element = teamBPlayers[j];
+            const element = teamBPlayers[j];
 
             //element.style.opacity = '0';
             //gsap.to(element, {opacity: 1, duration: 0.25, delay: (j * 0.05) + (delay * 1.2)});
@@ -162,7 +164,6 @@ function toggleNextUp(show, delay = 0) {
                 delay: (j * 0.2) + (delay * 1.2)
             });
         }
-        ;
     }
 }
 

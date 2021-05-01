@@ -1,7 +1,7 @@
 const DASHBOARD_BUNDLE_NAME = 'ipl-overlay-controls';
 
 const SBData = nodecg.Replicant('SBData', DASHBOARD_BUNDLE_NAME);
-const currentBreakScene = nodecg.Replicant('currentBreakScene', DASHBOARD_BUNDLE_NAME);
+const currentBreakScene = nodecg.Replicant('activeBreakScene', DASHBOARD_BUNDLE_NAME);
 const mainFlavorText = nodecg.Replicant('mainFlavorText', DASHBOARD_BUNDLE_NAME);
 const casterNames = nodecg.Replicant('casterNames', DASHBOARD_BUNDLE_NAME);
 const nowPlaying = nodecg.Replicant('nowPlaying', DASHBOARD_BUNDLE_NAME);
