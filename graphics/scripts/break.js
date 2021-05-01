@@ -226,7 +226,7 @@ casters.on('change', newValue => {
     Object.keys(newValue).forEach((item, index, arr) => {
         const element = newValue[item];
 
-        castersText += `${element.name} <span class="pronoun">${elementb.pronouns}</span>`;
+        castersText += `${element.name} <span class="pronoun">${element.pronouns}</span>`;
 
         if (arr[index + 2]) {
             castersText += ', ';
