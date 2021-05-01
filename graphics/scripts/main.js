@@ -45,14 +45,14 @@ SBShown.on('change', newValue => {
 
 // Caster names
 
-casterNames.on('change', newValue => {
-	let nameArray = newValue.split('&');
+casters.on('change', newValue => {
 	let bg = document.querySelector('.castersBG');
 	bg.innerHTML = '';
 
-	nameArray.forEach(name => {
-		var elem = document.createElement('fitted-text');
-		var htmlText = name.replace(/\[\[/g, '<span class="pronoun">').replace(/\]\]/g, '</span>');
+	Object.keys(newValue).forEach((item, index, arr) => {
+		const caster = newValue[item];
+		const elem = document.createElement('fitted-text');
+		const htmlText = `${caster.name} <span class="pronoun">${caster.pronouns}</span>`;
 		elem.setAttribute('text', htmlText);
 		elem.setAttribute('max-width', '230');
 		elem.setAttribute('align', 'left');
