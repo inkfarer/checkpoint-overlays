@@ -376,53 +376,61 @@ const mapNameToImagePath = {
 };
 
 function createMapListElems(maplist) {
-    let stagesGrid = document.querySelector('.stagesGrid');
+    const stagesGrid = document.querySelector('.stagesGrid');
+    const imageLoads = [];
+
     gsap.to(stagesGrid, {
-        duration: 0.5, opacity: 0, onComplete: function () {
+        duration: 0.5, opacity: 0, onComplete: async function () {
             stagesGrid.innerHTML = '';
-            stagesGrid.style.gridTemplateColumns = `repeat(${maplist.length - 1}, 1fr)`;
+            stagesGrid.style.gridTemplateColumns = `repeat(${maplist.games.length}, 1fr)`;
 
             let mapsHTML = '';
             let elemWidth = '260';
             let fontSize = '2em';
             let winnerFontSize = '1.7em';
 
-            if (maplist.length === 4) {
+            if (maplist.games.length === 3) {
                 elemWidth = '380';
                 stagesGrid.style.width = '1200px';
                 winnerFontSize = '2em';
-            } else if (maplist.length === 6) {
+            } else if (maplist.games.length === 5) {
                 elemWidth = '260';
                 stagesGrid.style.width = '1400px';
                 fontSize = '1.9em;'
                 winnerFontSize = '1.9em';
-            } else if (maplist.length === 8) {
+            } else if (maplist.games.length === 7) {
                 elemWidth = '190';
                 stagesGrid.style.width = '1600px';
                 fontSize = '1.75em';
             }
 
-            for (let i = 1; i < maplist.length; i++) {
-                const element = maplist[i];
+            for (let i = 0; i < maplist.games.length; i++) {
+                const element = maplist.games[i];
+
+                const imageUrl = `img/stages/${mapNameToImagePath[element.stage]}`;
+                imageLoads.push(loadImagePromise(imageUrl));
+
                 // noinspection CssUnknownTarget
-                let elem = `
-			<div class="stageElem">
-				<div class="dot-wrapper">
-					<img class="mapsDot" src="img/cp-mapsdot.png">
-				</div>
-				<div class="stageImage" style="background-image: url('img/stages/${mapNameToImagePath[element.map]}');">
-					<div class="stageWinner" id="stageWinner_${i}" style="opacity: 0; font-size: ${winnerFontSize}"></div>
-				</div>
-				<div class="stageInfo">
-					<div class="stageMode">
-						<fitted-text text="${element.mode}" max-width="${elemWidth}" align="center"></fitted-text>
-					</div>
-					<div class="stageName" style="font-size: ${fontSize}">${element.map}</div>
-				</div>
-			</div>`
+                const elem = `
+                <div class="stageElem">
+                    <div class="dot-wrapper">
+                        <img class="mapsDot" src="img/cp-mapsdot.png">
+                    </div>
+                    <div class="stageImage" style="background-image: url(${imageUrl});">
+                        <div class="stageWinner" id="stageWinner_${i}" style="opacity: 0; font-size: ${winnerFontSize}"></div>
+                    </div>
+                    <div class="stageInfo">
+                        <div class="stageMode">
+                            <fitted-text text="${element.mode}" max-width="${elemWidth}" align="center"></fitted-text>
+                        </div>
+                        <div class="stageName" style="font-size: ${fontSize}">${element.stage}</div>
+                    </div>
+                </div>`
 
                 mapsHTML += elem;
             }
+
+            await Promise.all(imageLoads);
 
             stagesGrid.innerHTML = mapsHTML;
             setWinners(mapWinners.value)
@@ -432,8 +440,19 @@ function createMapListElems(maplist) {
     gsap.to(stagesGrid, {duration: 0.5, opacity: 1, delay: 0.5});
 }
 
+function loadImagePromise(imageUrl) {
+    return new Promise((resolve) => {
+        const imageLoaderElem = document.createElement("img");
+        imageLoaderElem.src = imageUrl;
+
+        imageLoaderElem.addEventListener('load', () => {
+            resolve();
+        });
+    })
+}
+
 // returns true if there is a difference
-function compareMapLists(val1, val2) {
+function roundsDiffer(val1, val2) {
     if (val1[0].id !== val2[0].id || val1[0].name !== val2[0].name) return true;
     if (val1.length !== val2.length) return true;
     for (let i = 1; i < val1.length; i++) {
@@ -442,19 +461,19 @@ function compareMapLists(val1, val2) {
     return false;
 }
 
-NodeCG.waitForReplicants(maplists, currentMaplistID, mapWinners).then(() => {
-    currentMaplistID.on('change', newValue => {
-        let maplist = maplists.value.filter(list => list[0].id == newValue)[0];
+NodeCG.waitForReplicants(rounds, activeRound, mapWinners).then(() => {
+    activeRound.on('change', newValue => {
+        const round = rounds.value[newValue];
 
-        createMapListElems(maplist);
+        createMapListElems(round);
     });
 
-    maplists.on('change', (newValue, oldValue) => {
+    rounds.on('change', (newValue, oldValue) => {
         if (!oldValue) return;
-        let newCurrentList = newValue.filter(list => list[0].id == currentMaplistID.value)[0];
-        let oldCurrentList = oldValue.filter(list => list[0].id == currentMaplistID.value)[0];
+        let newCurrentList = newValue[activeRound.value];
+        let oldCurrentList = oldValue[activeRound.value];
 
-        if (compareMapLists(newCurrentList, oldCurrentList)) {
+        if (roundsDiffer(newCurrentList, oldCurrentList)) {
             createMapListElems(newCurrentList);
         }
     });
@@ -479,11 +498,11 @@ function setWinners(val) {
     for (let i = 0; i < val.length; i++) {
         const element = val[i];
         if (element === 0) {
-            setWinner(i + 1, '', false);
+            setWinner(i, '', false);
         } else if (element === 1) {
-            setWinner(i + 1, SBData.value.teamAInfo.name, true);
+            setWinner(i, SBData.value.teamAInfo.name, true);
         } else {
-            setWinner(i + 1, SBData.value.teamBInfo.name, true);
+            setWinner(i, SBData.value.teamBInfo.name, true);
         }
     }
 }
@@ -498,7 +517,6 @@ function setWinner(index, name, shown) {
     } else {
         opacity = 0
     }
-    ;
 
     if (shown) {
         winnerElem.innerText = name;
