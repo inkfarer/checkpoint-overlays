@@ -446,12 +446,10 @@ function loadImagePromise(imageUrl) {
     })
 }
 
-// returns true if there is a difference
 function roundsDiffer(val1, val2) {
-    if (val1[0].id !== val2[0].id || val1[0].name !== val2[0].name) return true;
-    if (val1.length !== val2.length) return true;
-    for (let i = 1; i < val1.length; i++) {
-        if (val1[i].map !== val2[i].map || val1[i].mode !== val2[i].mode) return true;
+    if (val1.games.length !== val2.games.length) return true;
+    for (let i = 0; i < val1.games.length; i++) {
+        if (val1.games[i].stage !== val2.games[i].stage || val1.games[i].mode !== val2.games[i].mode) return true;
     }
     return false;
 }
