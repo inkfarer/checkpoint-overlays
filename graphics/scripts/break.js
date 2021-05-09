@@ -380,23 +380,27 @@ function createMapListElems(maplist) {
             stagesGrid.style.gridTemplateColumns = `repeat(${maplist.games.length}, 1fr)`;
 
             let mapsHTML = '';
-            let elemWidth = '260';
-            let fontSize = '2em';
+            let elemWidth;
+            let fontSize = '40px';
             let winnerFontSize = '1.7em';
 
-            if (maplist.games.length === 3) {
-                elemWidth = '380';
-                stagesGrid.style.width = '1200px';
-                winnerFontSize = '2em';
-            } else if (maplist.games.length === 5) {
-                elemWidth = '260';
-                stagesGrid.style.width = '1400px';
-                fontSize = '1.9em;'
-                winnerFontSize = '1.9em';
-            } else if (maplist.games.length === 7) {
-                elemWidth = '190';
-                stagesGrid.style.width = '1600px';
-                fontSize = '1.75em';
+            switch (maplist.games.length) {
+                case 3:
+                    elemWidth = '380';
+                    stagesGrid.style.width = '1200px';
+                    winnerFontSize = '2em';
+                    break;
+                case 5:
+                    elemWidth = '260';
+                    stagesGrid.style.width = '1400px';
+                    fontSize = '35px';
+                    winnerFontSize = '1.9em';
+                    break;
+                case 7:
+                    elemWidth = '190';
+                    stagesGrid.style.width = '1600px';
+                    fontSize = '35px';
+                    break;
             }
 
             for (let i = 0; i < maplist.games.length; i++) {
