@@ -97,7 +97,7 @@ function toggleStages(show, startDelay = 0) {
 
     for (let i = 0; i < stageElems.length; i++) {
         const elem = stageElems[i];
-        let cardYTo = show ? 0 : 50;
+        let cardYTo = show ? 0 : -50;
         let cardYFrom = show ? -50 : 0;
         let cardDelay = (0.1 * i) + startDelay;
         let cardEase = show ? 'power2.out' : 'power2.in';
