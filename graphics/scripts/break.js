@@ -217,20 +217,20 @@ mainFlavorText.on('change', newValue => {
 const casterNamesTL = gsap.timeline();
 
 casters.on('change', newValue => {
-    let castersText = '';
-    Object.keys(newValue).forEach((item, index, arr) => {
-        const element = newValue[item];
-
-        castersText += `${element.name} <span class="pronoun">${element.pronouns}</span>`;
-
-        if (arr[index + 2]) {
-            castersText += ', ';
-        } else if (arr[index + 1]) {
-            castersText += ' & ';
-        }
-    });
-
-    setMainSceneText('breakCastersText', castersText, casterNamesTL);
+    // let castersText = '';
+    // Object.keys(newValue).forEach((item, index, arr) => {
+    //     const element = newValue[item];
+    //
+    //     castersText += `${element.name} <span class="pronoun">${element.pronouns}</span>`;
+    //
+    //     if (arr[index + 2]) {
+    //         castersText += ', ';
+    //     } else if (arr[index + 1]) {
+    //         castersText += ' & ';
+    //     }
+    // });
+    //
+    // setMainSceneText('breakCastersText', castersText, casterNamesTL);
 });
 
 const musicTL = gsap.timeline();
@@ -261,7 +261,7 @@ NodeCG.waitForReplicants(nowPlaying).then(() => {
 });
 
 function getGridRows(showMusic) {
-    let gridStyle = '84px 84px';
+    let gridStyle = '84px';
 
     if (showMusic) {
         gridStyle += ' 84px';

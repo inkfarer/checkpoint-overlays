@@ -72,6 +72,7 @@
 			grid-template-columns: 1fr;
 			gap: 5px;
 			justify-items: start;
+			transform: translate(0, 60px);
 		}
 
 		.mainSceneLogo {
@@ -164,7 +165,7 @@
 			height: 1080px;
 			position: absolute;
 			z-index: -5;
-			top: 0;
+			top: -29px;
 			left: 0;
 			background-image: linear-gradient(0deg,
 			var(--line) 2.81%,
@@ -500,12 +501,6 @@
 			<div class="mainSceneGrid">
 				<div class="infoBox noIcon">
 					<fitted-text class="infoBoxText" text="asdasd" max-width="870" id="breakFlavorText"></fitted-text>
-				</div>
-				<div class="infoBox" id="breakCasters">
-					<div class="infoBoxIcon">
-						<i class="fas fa-microphone"></i>
-					</div>
-					<fitted-text class="infoBoxText" useInnerHTML text="asdasd" max-width="800" id="breakCastersText"></fitted-text>
 				</div>
 				<div class="infoBox" id="breakMusic">
 					<div class="infoBoxIcon">
