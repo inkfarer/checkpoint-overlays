@@ -190,22 +190,22 @@ const breakMainTextProps = {
     maxWidth: 850
 }
 
-function setMainSceneText(textElemID, newText, tl, oldText = '') {
+function setMainSceneText(textElemID, newText, tl) {
     let textElem = document.querySelector(`#${textElemID}`);
-    if (textElem.getAttribute('text') == newText) return;
-
-    if (oldText === '') {
-        oldText = textElem.getAttribute('text');
-    }
+    if (textElem.getAttribute('text') === newText) return;
 
     tl.add(gsap.fromTo(textElem, {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'}, {
-        ease: 'power2.inOut', duration: 1, clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)', onComplete: function () {
+        ease: 'power1.inOut',
+        duration: 0.75,
+        clipPath: 'polygon(100% 0, 125% 0, 100% 100%, 100% 100%)',
+        opacity: 0.5,
+        onComplete: function () {
             textElem.setAttribute('text', newText);
-            textElem.style.opacity = '0';
-            textElem.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
+            textElem.style.clipPath = 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)';
+            textElem.style.opacity = '1';
         }
     }));
-    tl.add(gsap.to(textElem, {duration: 0.5, opacity: 1, delay: 0.25}));
+    tl.add(gsap.to(textElem, {ease: 'power1.inOut', duration: 0.75, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'}));
 }
 
 const mainTextTL = gsap.timeline();
@@ -523,8 +523,6 @@ function setWinner(index, name, shown) {
 }
 
 // Scoreboard on maps page
-
-
 
 teamScores.on('change', newValue => {
     document.querySelector('#teamAScore').setAttribute('text', newValue.teamA);
