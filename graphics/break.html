@@ -204,7 +204,8 @@
 			width: 1400px;
 			gap: 25px;
 			position: absolute;
-			bottom: 200px;
+			bottom: 150px;
+			z-index: 2;
 		}
 
 		.stageImage {
@@ -277,7 +278,7 @@
 			height: 65px;
 
 			position: absolute;
-			bottom: 50px;
+			top: 187px;
 
 			display: grid;
 			grid-template-rows: 1fr;
@@ -296,7 +297,7 @@
 		}
 
 		.teamNameBG fitted-text {
-			font-size: 2.5em;
+			font-size: 45px;
 			color: black;
 			margin: 10px;
 		}
@@ -308,8 +309,8 @@
 		.teamScoreBG {
 			background-color: var(--bgColor1);
 			color: white;
-			width: 65px;
-			height: 65px;
+			width: 60px;
+			height: 60px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -317,7 +318,7 @@
 		}
 
 		.teamScoreBG fitted-text {
-			font-size: 3.5em;
+			font-size: 50px;
 			font-weight: 700;
 			margin-top: 1px;
 		}
@@ -489,6 +490,72 @@
 		div.stageArt2 {
 			background-image: url('./img/break-art/maps-half2.png');
 		}
+
+		.flex-align-center {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.info-bar-wrapper {
+			width: 100vw;
+			height: 100px;
+
+			position: absolute;
+			top: 77px;
+			z-index: 6;
+		}
+
+		.info-bar {
+			width: 1400px;
+			height: 100px;
+
+			position: absolute;
+			z-index: 3;
+
+			border-radius: 10px;
+		}
+
+		.info-bar > .info-row {
+			color: black;
+			position: absolute;
+			width: max-content;
+			font-size: 55px;
+			font-weight: 600;
+		}
+
+		.info-row-welcome {
+			font-weight: 600;
+		}
+
+		.info-row-welcome .logo-font {
+			font-size: 45px;
+			font-family: 'Georgia';
+			font-weight: bold;
+			color: #FE763C;
+		}
+
+		.info-row-welcome .small-logo > img {
+			height: 35px;
+			margin: 10px 15px 0;
+		}
+
+		.info-row-commentators .commentators > i {
+			font-size: 50px;
+		}
+
+		.info-row-commentators .commentators span.pronoun {
+			background-color: black;
+			color: white;
+			padding: 1px 5px;
+			border-radius: 5px;
+			font-size: 30px;
+		}
+
+		.info-row > div {
+			display: flex;
+		}
+
 	</style>
 </head>
 <body>
@@ -574,6 +641,36 @@
 		</div>
 	</div>
 
+	<div class="info-bar-wrapper flex-align-center">
+		<div class="info-bar flex-align-center">
+			<div class="info-row info-row-welcome flex-align-center">
+				<div class="flex-align-center">
+					Welcome to a<span class="small-logo"><img src="img/thick-checkmark.png"></span><span
+						class="logo-font">Checkpoint 1&nbsp;</span>tournament!
+				</div>
+			</div>
+			<div class="info-row info-row-commentators info-row-commentator-names flex-align-center">
+				<div class="commentators flex-align-center">
+					<i class="fas fa-microphone"></i>&nbsp;<fitted-text id="info-row-casters-text" useInnerHTML
+																			text="Casters" max-width="1300"></fitted-text>
+				</div>
+			</div>
+			<div class="info-row info-row-commentators flex-align-center">
+				<div class="commentators flex-align-center">
+					<i class="fab fa-twitter"></i>&nbsp;<fitted-text id="info-row-casters-twitter-text" useInnerHTML
+																	 text="Casters" max-width="1300"></fitted-text>
+				</div>
+			</div>
+			<div class="info-row info-row-music flex-align-center">
+				<div>
+					<i class="fas fa-music" id="info-row-music-icon"></i>&nbsp;<fitted-text id="info-row-music-text"
+																							text="Music"
+																							max-width="1300"></fitted-text>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="gridBG"></div>
 	<div class="contentBG"></div>
 
@@ -584,5 +681,7 @@
 	<script src="../node_modules/gsap/dist/gsap.js"></script>
 	<script src="../node_modules/fitted-text/dist/fitted-text.js"></script>
 	<script src="scripts/break.js"></script>
+	<script src="scripts/infoBar.js"></script>
+	<script src="scripts/casters.js"></script>
 </body>
 </html>

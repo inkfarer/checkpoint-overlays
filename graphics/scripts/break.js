@@ -44,6 +44,7 @@ currentBreakScene.on('change', (newValue, oldValue) => {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleMainScene(true, animDelay);
+            toggleInfoBar(false);
             toggleNextUp(false);
             break;
         case 'teams':
@@ -54,11 +55,13 @@ currentBreakScene.on('change', (newValue, oldValue) => {
                 animDelay = 0.5 + (mapCount * 0.1);
             }
             toggleNextUp(true, animDelay);
+            toggleInfoBar(true, animDelay);
             break;
         case 'stages':
             toggleMainScene(false, 0);
             toggleNextUp(false);
             toggleStages(true, mapsDelay);
+            toggleInfoBar(true, mapsDelay);
             break;
         default:
             mapCount = toggleStages(false, 0);
@@ -161,6 +164,11 @@ function toggleNextUp(show, delay = 0) {
     }
 }
 
+function toggleInfoBar(show, delay = 0) {
+    const opacity = show ? 1 : 0;
+    gsap.to('.info-bar-wrapper', {opacity: opacity, duration: 0.5, delay: delay});
+}
+
 // Informative texts on main scene
 
 function measureText(text, fontFamily, fontSize, maxWidth, useInnerHTML = false) {
@@ -190,47 +198,36 @@ const breakMainTextProps = {
     maxWidth: 850
 }
 
-function setMainSceneText(textElemID, newText, tl) {
-    let textElem = document.querySelector(`#${textElemID}`);
-    if (textElem.getAttribute('text') === newText) return;
+function setMainSceneText(elem, newText, tl) {
+    if (elem.getAttribute('text') === newText) return;
 
-    tl.add(gsap.fromTo(textElem, {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'}, {
+    let textElem = elem;
+    if (elem.tagName.toLowerCase() !== 'fitted-text') {
+        textElem = elem.querySelector('fitted-text');
+    }
+
+    tl.add(gsap.fromTo(elem, {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'}, {
         ease: 'power1.inOut',
         duration: 0.75,
         clipPath: 'polygon(100% 0, 125% 0, 100% 100%, 100% 100%)',
         opacity: 0.5,
         onComplete: function () {
             textElem.setAttribute('text', newText);
-            textElem.style.clipPath = 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)';
-            textElem.style.opacity = '1';
+            elem.style.clipPath = 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)';
+            elem.style.opacity = '1';
         }
     }));
-    tl.add(gsap.to(textElem, {ease: 'power1.inOut', duration: 0.75, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'}));
+    tl.add(gsap.to(elem, {
+        ease: 'power1.inOut',
+        duration: 0.75,
+        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
+    }));
 }
 
 const mainTextTL = gsap.timeline();
 
 mainFlavorText.on('change', newValue => {
-    setMainSceneText('breakFlavorText', newValue, mainTextTL);
-});
-
-const casterNamesTL = gsap.timeline();
-
-casters.on('change', newValue => {
-    // let castersText = '';
-    // Object.keys(newValue).forEach((item, index, arr) => {
-    //     const element = newValue[item];
-    //
-    //     castersText += `${element.name} <span class="pronoun">${element.pronouns}</span>`;
-    //
-    //     if (arr[index + 2]) {
-    //         castersText += ', ';
-    //     } else if (arr[index + 1]) {
-    //         castersText += ' & ';
-    //     }
-    // });
-    //
-    // setMainSceneText('breakCastersText', castersText, casterNamesTL);
+    setMainSceneText(document.getElementById('breakFlavorText'), newValue, mainTextTL);
 });
 
 const musicTL = gsap.timeline();
@@ -255,8 +252,12 @@ function getSongNameString(rep) {
 }
 
 NodeCG.waitForReplicants(nowPlaying).then(() => {
+    const topBarMusicTl = gsap.timeline();
+
     nowPlaying.on('change', newValue => {
-        setMainSceneText('breakMusicText', getSongNameString(newValue), musicTL);
+        setMainSceneText(document.getElementById('breakMusicText'), getSongNameString(newValue), musicTL);
+
+        setMainSceneText(document.querySelector('.info-row-music > div'), getSongNameString(newValue), topBarMusicTl);
     });
 });
 
@@ -539,7 +540,7 @@ const twitterLinks = ["@IPLSplatoon",
 
 function startTextLoop(arr, tl, elemID) {
     for (i = 0; i < arr.length; i++) {
-        setMainSceneText(elemID, arr[i], tl);
+        setMainSceneText(document.getElementById(elemID), arr[i], tl);
 
         if (i === arr.length - 1) {
             tl.add(gsap.to({}, {
