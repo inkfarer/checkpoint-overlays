@@ -141,8 +141,8 @@ function toggleNextUp(show, delay = 0) {
             const element = teamAPlayers[i];
 
             gsap.fromTo(element, {clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'}, {
-                ease: 'power2.out',
-                duration: 2,
+                ease: 'power1.out',
+                duration: 0.75,
                 clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
                 delay: (i * 0.2) + (delay * 1.2)
             });
@@ -152,8 +152,8 @@ function toggleNextUp(show, delay = 0) {
             const element = teamBPlayers[j];
 
             gsap.fromTo(element, {clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'}, {
-                ease: 'power2.out',
-                duration: 2,
+                ease: 'power1.out',
+                duration: 0.75,
                 clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
                 delay: (j * 0.2) + (delay * 1.2)
             });

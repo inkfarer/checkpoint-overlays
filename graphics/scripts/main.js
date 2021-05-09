@@ -36,7 +36,7 @@ SBShown.on('change', newValue => {
 		gsap.fromTo('.teamNameElem', {clipPath: 'polygon(0 0, 0px 0, 0px 100%, 0% 100%)'}, {
 			clipPath: 'polygon(0 0, 215px 0, 215px 100%, 0% 100%)',
 			duration: 0.75,
-			ease: 'power2.inOut',
+			ease: 'power1.out',
 			delay: 0.25
 		});
 		gsap.fromTo('.score', {opacity: 0}, {opacity: 1, duration: 0.5, delay: 0.25});
