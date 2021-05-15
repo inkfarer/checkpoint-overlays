@@ -383,19 +383,19 @@ function createMapListElems(maplist) {
             let mapsHTML = '';
             let elemWidth;
             let fontSize = '40px';
-            let winnerFontSize = '1.7em';
+            let winnerFontSize = '32px';
 
             switch (maplist.games.length) {
                 case 3:
                     elemWidth = '380';
                     stagesGrid.style.width = '1200px';
-                    winnerFontSize = '2em';
+                    winnerFontSize = '35px';
                     break;
                 case 5:
                     elemWidth = '260';
                     stagesGrid.style.width = '1400px';
                     fontSize = '35px';
-                    winnerFontSize = '1.9em';
+                    winnerFontSize = '35px';
                     break;
                 case 7:
                     elemWidth = '190';
