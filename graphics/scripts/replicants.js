@@ -1,5 +1,7 @@
 const DASHBOARD_BUNDLE_NAME = 'ipl-overlay-controls';
 
+const nextRoundTime = nodecg.Replicant('nextRoundStartTime', DASHBOARD_BUNDLE_NAME);
+const nextRoundStartTimeShown = nodecg.Replicant('nextRoundStartTimeShown', DASHBOARD_BUNDLE_NAME);
 const SBData = nodecg.Replicant('scoreboardData', DASHBOARD_BUNDLE_NAME);
 const currentBreakScene = nodecg.Replicant('activeBreakScene', DASHBOARD_BUNDLE_NAME);
 const mainFlavorText = nodecg.Replicant('mainFlavorText', DASHBOARD_BUNDLE_NAME);

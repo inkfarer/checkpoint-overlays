@@ -270,7 +270,7 @@ function getGridRows(showMusic) {
         gridStyle += ' 0px';
     }
 
-    gridStyle += ' 84px 84px';
+    gridStyle += ' 84px 84px 84px';
 
     return gridStyle;
 }
@@ -562,4 +562,34 @@ window.addEventListener('load', () => {
     twitterTL.add(gsap.to({}, {duration: 5}));
 
     startTextLoop(twitterLinks, twitterTL, 'breakTwitterText');
+});
+
+const nextRoundTimeElem = document.getElementById('breakTimerText');
+let nextStageDate;
+let lastDiff;
+
+nextRoundTime.on('change', newValue => {
+    nextStageDate = luxon.DateTime.fromObject(newValue);
+});
+
+setInterval(() => {
+    const diff = Math.ceil(nextStageDate.diffNow(['minutes']).toObject().minutes);
+    if (lastDiff !== diff) {
+        lastDiff = diff;
+        let newText;
+
+        if (diff < 1) {
+            newText = 'Stream resumes <span class="count-minutes">soon!</span>';
+        } else if (diff === 1) {
+            newText = `Returning in&nbsp;<span class="count-minutes">~${diff}</span>&nbsp;minute...`;
+        } else {
+            newText = `Returning in&nbsp;<span class="count-minutes">~${diff}</span>&nbsp;minutes...`;
+        }
+
+        nextRoundTimeElem.setAttribute('text', newText);
+    }
+}, 1000);
+
+nextRoundStartTimeShown.on('change', newValue => {
+    gsap.to('#breakTimer', {duration: 0.5, opacity: newValue ? 1 : 0});
 });

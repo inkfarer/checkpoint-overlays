@@ -73,6 +73,7 @@
 			gap: 5px;
 			justify-items: start;
 			transform: translate(0, 60px);
+			z-index: 5;
 		}
 
 		.mainSceneLogo {
@@ -262,7 +263,7 @@
 			align-items: flex-end;
 			justify-content: flex-start;
 			color: white;
-			font-size: 1.7em;
+			font-size: 2em;
 			text-align: left;
 			position: absolute;
 			left: 0;
@@ -556,6 +557,10 @@
 			display: flex;
 		}
 
+		.fa-hourglass-half {
+			color: #FF7334;
+		}
+
 	</style>
 </head>
 <body>
@@ -586,6 +591,12 @@
 						<i class="fab fa-twitter"></i>
 					</div>
 					<fitted-text class="infoBoxText" text="@CheckpointSPL" max-width="800" id="breakTwitterText"></fitted-text>
+				</div>
+				<div class="infoBox" id="breakTimer">
+					<div class="infoBoxIcon">
+						<i class="fas fa-hourglass-half"></i>
+					</div>
+					<fitted-text class="infoBoxText" useInnerHTML text="Next round starts in..." max-width="800" id="breakTimerText"></fitted-text>
 				</div>
 			</div>
 			<img src="img/ipl-streamed-black.png" class="ipl-powered">
@@ -675,6 +686,7 @@
 	<div class="contentBG"></div>
 
 	<script src="./scripts/replicants.js"></script>
+	<script src="../node_modules/luxon/build/global/luxon.js"></script>
 
 	<script src="./scripts/rgbToFilter.js"></script>
 	<script src="../node_modules/lottie-web/build/player/lottie.js"></script>
