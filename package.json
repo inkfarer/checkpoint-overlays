@@ -1,6 +1,7 @@
 {
 	"name": "checkpoint-overlays",
 	"version": "0.0.0",
+	"compatibleDashboardVersion": "^2.0.0",
 	"description": "Overlay's for the Checkpoint 1 Discord server's Splatoon tournaments.",
 	"homepage": "",
 	"author": {
